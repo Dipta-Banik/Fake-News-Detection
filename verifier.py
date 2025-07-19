@@ -1,7 +1,7 @@
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import torch
 
-model_name = "textattack/bert-base-uncased-MNLI"#"textattack/bert-base-uncased-MNLI"  # Alternative: "ynie/bert-base-snli"
+model_name = "textattack/bert-base-uncased-MNLI"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForSequenceClassification.from_pretrained(model_name)
 
@@ -12,7 +12,6 @@ def verify_fact_bert(claim, evidence):
     logits = outputs.logits
     probs = torch.nn.functional.softmax(logits, dim=1)
 
-    # Assumption: index 1 = entailment (true), index 0 = contradiction (false) – may vary by model
     labels = ['Contradiction', 'Neutral', 'Entailment']
     predicted_label = labels[probs.argmax().item()]
     
