@@ -6,3 +6,4 @@ torch
 streamlit
 pandas
 numpy
+lxml_html_clean
